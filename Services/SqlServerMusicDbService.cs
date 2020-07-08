@@ -2,6 +2,7 @@
 using SampleAPI.Exceptions;
 using SampleAPI.Models;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SampleAPI.Services
 {
@@ -14,11 +15,11 @@ namespace SampleAPI.Services
             _context = context;
         }
 
-        public MusicLabel GetMusicLabel(int id)
+        public async Task<MusicLabel> GetMusicLabel(int id)
         {
-            var musicLabel = _context.MusicLabels
+            var musicLabel = await _context.MusicLabels
                                      .Include(m => m.Albums)
-                                     .SingleOrDefault(m => m.IdMusicLabel == id);
+                                     .SingleOrDefaultAsync(m => m.IdMusicLabel == id);
 
             if (musicLabel == null)
             {
@@ -29,11 +30,11 @@ namespace SampleAPI.Services
             return musicLabel;
         }
 
-        public void RemoveMusician(int id)
+        public async Task RemoveMusician(int id)
         {
-            var musician = _context.Musicians
+            var musician = await _context.Musicians
                                    .Include(m => m.MusicianTracks)
-                                   .SingleOrDefault(m => m.IdMusician == id);
+                                   .SingleOrDefaultAsync(m => m.IdMusician == id);
 
             if (musician == null)
             {

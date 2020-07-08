@@ -1,6 +1,7 @@
-﻿    using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SampleAPI.Exceptions;
 using SampleAPI.Services;
+using System.Threading.Tasks;
 
 namespace SampleAPI.Controllers
 {
@@ -16,10 +17,10 @@ namespace SampleAPI.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public IActionResult GetMusicLabel(int id)
+        public async Task<IActionResult> GetMusicLabel(int id)
         {
             try { 
-                var res = _dbService.GetMusicLabel(id);
+                var res = await _dbService.GetMusicLabel(id);
                 return Ok(res);
             }
             catch (MusicLabelDoNotExistsException exc)

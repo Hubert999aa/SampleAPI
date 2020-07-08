@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SampleAPI.Exceptions;
 using SampleAPI.Services;
+using System.Threading.Tasks;
 
 namespace SampleAPI.Controllers
 {
@@ -17,11 +18,11 @@ namespace SampleAPI.Controllers
         }
 
         [HttpDelete("{id:int}")]
-        public IActionResult RemoveMusician(int id)
+        public async Task<IActionResult> RemoveMusician(int id)
         {
             try
             {
-                _dbService.RemoveMusician(id);
+                await _dbService.RemoveMusician(id);
                 return NoContent();
             }
             catch (MusicianDoesNotExistsException exc)
