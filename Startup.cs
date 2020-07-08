@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SampleAPI.Models;
+using SampleAPI.Services;
 
 namespace SampleAPI
 {
@@ -20,6 +21,7 @@ namespace SampleAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IMusicDbService, SqlServerMusicDbService>();
             services.AddDbContext<MusicDbContext>(opt =>
             {
                 opt.UseSqlServer("Data Source=db-mssql;Initial Catalog=s18580;Integrated Security=True");
